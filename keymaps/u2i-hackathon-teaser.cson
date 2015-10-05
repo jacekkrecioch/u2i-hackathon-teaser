@@ -8,5 +8,5 @@
 # For more detailed documentation see
 # https://atom.io/docs/latest/behind-atom-keymaps-in-depth
 'atom-workspace':
-  'ctrl-alt-o': 'sample-script-consumer:run-blank'
-  'ctrl-alt-i': 'sample-script-consumer:run-default'
+  'ctrl-alt-o': 'u2i-hackathon-teaser:run'
+  'ctrl-alt-i': 'u2i-hackathon-teaser:configure'

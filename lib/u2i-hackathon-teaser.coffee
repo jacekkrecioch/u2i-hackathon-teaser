@@ -1,32 +1,32 @@
 ConsoleRuntimeObserver = require './console-runtime-observer'
+OptionsView = require './options-view'
 
 {CompositeDisposable} = require 'atom'
 
-module.exports = SampleScriptConsumer =
+module.exports =
   subscriptions: null
 
   activate: (state) ->
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
 
+    @observer = new ConsoleRuntimeObserver()
+
+    @runOptions = {}
+    @optionsView = new OptionsView(@runOptions)
+
     # Register command that toggles this view
-    @subscriptions.add atom.commands.add 'atom-workspace', 'sample-script-consumer:run-blank':
-      => @runBlank()
-    @subscriptions.add atom.commands.add 'atom-workspace', 'sample-script-consumer:run-default':
-      => @runDefault()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'u2i-hackathon-teaser:run':
+      => @run()
 
   deactivate: ->
     @subscriptions.dispose()
+    @optionsView.close()
 
-  serialize: ->
-    sampleScriptConsumerViewState: @sampleScriptConsumerView.serialize()
 
   consumeBlankRuntime: (runtime) ->
     @blankRuntime = runtime
-    @blankRuntime.addObserver(new ConsoleRuntimeObserver)
-
-  consumeDefaultRuntime: (runtime) ->
-    @defaultRuntime = runtime
+    @blankRuntime.addObserver(@observer)
 
   activatePackage: (packageName) ->
     return if atom.packages.activePackages[packageName]?
@@ -39,10 +39,13 @@ module.exports = SampleScriptConsumer =
 
     pakage.activateNow()
 
-  runBlank: ->
+  run: ->
     @activatePackage('script')
-    @blankRuntime.execute()
 
-  runDefault: ->
-    @activatePackage('script')
-    @defaultRuntime.execute()
+    task = @runOptions.task
+    if (task == undefined)
+      atom.notifications.addError('Wrong task name!')
+      return
+
+    @observer.expectedOutput = task.output
+    @blankRuntime.execute("File Based", task.input)

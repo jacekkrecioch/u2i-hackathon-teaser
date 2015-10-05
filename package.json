@@ -1,22 +1,17 @@
 {
-  "name": "sample-script-consumer",
-  "main": "./lib/sample-script-consumer",
+  "name": "u2i-hackathon-teaser",
+  "main": "./lib/u2i-hackathon-teaser",
   "version": "0.1.0",
-  "description": "A package that show how to properly use atom-script service",
+  "description": "u2i Hackathon Teaser",
   "keywords": [
-    "script"
+    "u2i", "hackathon", "fun"
   ],
-  "repository": "https://github.com/s1mplex/sample-script-consumer",
+  "repository": "https://github.com/u2i/u2i-hackathon-teaser",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
   "consumedServices": {
-    "default-script-runtime": {
-      "versions": {
-        "0.1.0": "consumeDefaultRuntime"
-      }
-    },
     "provide-blank-runtime": {
       "versions": {
         "0.1.0": "consumeBlankRuntime"
@@ -24,5 +19,6 @@
     }
   },
   "dependencies": {
+    "atom-space-pen-views": "^2.0.3"
   }
 }

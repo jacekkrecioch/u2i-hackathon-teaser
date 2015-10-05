@@ -1,0 +1,12 @@
+'menu': [
+  {
+    label: 'Packages'
+    submenu: [
+      label: 'u2i Hackathon Teaser'
+      submenu: [
+        { label: 'Configure', command: 'u2i-hackathon-teaser:configure' },
+        { label: 'Run', command: 'u2i-hackathon-teaser:run' }
+      ]
+    ]
+  }
+]
